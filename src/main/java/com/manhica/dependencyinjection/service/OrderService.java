@@ -1,0 +1,18 @@
+package com.manhica.dependencyinjection.service;
+
+import com.manhica.dependencyinjection.entities.Order;
+import org.springframework.stereotype.Service;
+
+@Service
+public class OrderService {
+
+    private ShippingService shippingService;
+
+    public OrderService(ShippingService shippingService) {
+        this.shippingService = shippingService;
+    }
+
+    public double total(Order order){
+        return order.getBasic() - (order.getBasic() * order.getDiscount()) + shippingService.shipment(order);
+    }
+}
